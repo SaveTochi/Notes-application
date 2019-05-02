@@ -53,25 +53,23 @@ const sortNotes = (notes, sortBy) => {
 
 // Render application data
 
-const renderNotes = function(notes, filters) {
+const renderNotes = (notes, filters) => {
   notes = sortNotes(notes, filters.sortBy);
-  const filteredNotes = notes.filter(function(note) {
-    return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
-  });
+  const filteredNotes = notes.filter(note =>
+    note.title.toLowerCase().includes(filters.searchText.toLowerCase())
+  );
 
   document.querySelector("#notes").innerHTML = "";
 
-  filteredNotes.forEach(function(note) {
+  filteredNotes.forEach(note => {
     const noteItem = generateNoteDOM(note, note.id);
     document.querySelector("#notes").appendChild(noteItem);
   });
 };
 
 //remove a note from the list
-const removeNote = function(id) {
-  const noteIndex = notes.findIndex(note => {
-    return note.id === id;
-  });
+const removeNote = id => {
+  const noteIndex = notes.findIndex(note => note.id === id);
   if (noteIndex > -1) {
     notes.splice(noteIndex, 1);
   }
@@ -106,6 +104,5 @@ const generateNoteDOM = note => {
 };
 
 // Generate last edited message
-const generateLastEditedText = timeStamp => {
-  return `Last edited ${moment(timeStamp).fromNow()}`;
-};
+const generateLastEditedText = timeStamp =>
+  `Last edited ${moment(timeStamp).fromNow()}`;
