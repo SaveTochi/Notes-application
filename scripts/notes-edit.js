@@ -54,5 +54,3 @@ window.addEventListener("storage", e => {
     dateReference.textContent = generateLastEditedText(note.updatedAt);
   }
 });
-
-console.log(notes);
