@@ -1,20 +1,24 @@
-const notes = getSavedNotes();
+let notes = getSavedNotes();
 
 const filters = {
-  searchText: ""
+  searchText: "",
+  sortBy: "byEdited"
 };
 
 renderNotes(notes, filters);
 
 document.querySelector("#create-note").addEventListener("click", function(e) {
   let id = uuidv4();
+  let timeStamp = moment().valueOf();
   notes.push({
     title: "",
     body: "",
-    id: id
+    id: id,
+    createdAt: timeStamp,
+    updatedAt: timeStamp
   });
   saveNotes(notes);
-  renderNotes(notes, filters);
+  location.assign(`/edit.html#${id}`);
 });
 
 document.querySelector("#search-text").addEventListener("input", function(e) {
@@ -23,5 +27,16 @@ document.querySelector("#search-text").addEventListener("input", function(e) {
 });
 
 document.querySelector("#filter-by").addEventListener("change", function(e) {
+  filters.sortBy = e.target.value;
   console.log(e.target.value);
+  renderNotes(notes, filters);
 });
+
+window.addEventListener("storage", e => {
+  if (e.key === "notes") {
+    notes = JSON.parse(e.newValue);
+    renderNotes(notes, filters);
+  }
+});
+
+console.log(notes);
