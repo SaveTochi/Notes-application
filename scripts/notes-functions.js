@@ -6,10 +6,10 @@ const saveNotes = notes => {
 // Get existing saved data
 const getSavedNotes = () => {
   const notesJSON = localStorage.getItem("notes");
-  if (notesJSON !== null) {
-    const notes = JSON.parse(notesJSON);
-    return notes;
-  } else {
+
+  try {
+    return notesJSON !== null ? JSON.parse(notesJSON) : [];
+  } catch {
     return [];
   }
 };
@@ -54,17 +54,25 @@ const sortNotes = (notes, sortBy) => {
 // Render application data
 
 const renderNotes = (notes, filters) => {
+  const notesEl = document.querySelector(".notes");
   notes = sortNotes(notes, filters.sortBy);
   const filteredNotes = notes.filter(note =>
     note.title.toLowerCase().includes(filters.searchText.toLowerCase())
   );
 
-  document.querySelector("#notes").innerHTML = "";
+  notesEl.innerHTML = "";
 
-  filteredNotes.forEach(note => {
-    const noteItem = generateNoteDOM(note, note.id);
-    document.querySelector("#notes").appendChild(noteItem);
-  });
+  if (filteredNotes.length > 0) {
+    filteredNotes.forEach(note => {
+      const noteItem = generateNoteDOM(note, note.id);
+      notesEl.appendChild(noteItem);
+    });
+  } else {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.textContent = "No notes to show";
+    emptyMessage.classList.add("empty-message");
+    notesEl.appendChild(emptyMessage);
+  }
 };
 
 //remove a note from the list
@@ -77,30 +85,29 @@ const removeNote = id => {
 
 // Generate DOM elements
 const generateNoteDOM = note => {
-  const noteContainer = document.createElement("div");
-  const noteText = document.createElement("a");
-  const removeNoteButton = document.createElement("button");
+  const noteEl = document.createElement("a");
+  const textEl = document.createElement("p");
+  const statusEl = document.createElement("p");
 
-  //Set up the remove note button
-  removeNoteButton.textContent = "X";
-  noteContainer.appendChild(removeNoteButton);
-
-  removeNoteButton.addEventListener("click", e => {
-    removeNote(note.id);
-    saveNotes(notes);
-    renderNotes(notes, filters);
-  });
-
+  //Setup the note title text
   if (note.title.length > 0) {
-    noteText.textContent = note.title;
+    textEl.textContent = note.title;
   } else {
-    noteText.textContent = "Unnamed note";
+    textEl.textContent = "Unnamed note";
   }
-  noteText.setAttribute("href", `edit.html#${note.id}`);
+  textEl.classList.add("list-item__title");
+  noteEl.appendChild(textEl);
 
-  noteContainer.appendChild(noteText);
+  //Setup the link
+  noteEl.setAttribute("href", `edit.html#${note.id}`);
+  noteEl.classList.add("list-item");
 
-  return noteContainer;
+  //Setup the status message
+  statusEl.textContent = generateLastEditedText(note.updatedAt);
+  statusEl.classList.add("list-item__subtitle");
+  noteEl.appendChild(statusEl);
+
+  return noteEl;
 };
 
 // Generate last edited message

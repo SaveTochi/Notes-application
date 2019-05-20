@@ -1,0 +1,26 @@
+.list-item {
+  text-decoration: none;
+  color: #333333;
+  background: #f7f7f7;
+  border: 1px solid #dedfe0;
+  margin: 1.6rem 0;
+  padding: 1.6rem;
+  display: block;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #eeeeee;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    margin-bottom: 0.4rem;
+  }
+
+  &__subtitle {
+    color: #666;
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-style: italic;
+  }
+}

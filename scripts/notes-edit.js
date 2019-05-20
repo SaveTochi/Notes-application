@@ -1,12 +1,12 @@
 const noteId = location.hash.substring(1);
 let notes = getSavedNotes();
 let note = notes.find(note => note.id === noteId);
-const noteTitleInput = document.querySelector("#note-title");
-const noteBodyText = document.querySelector("#note-body");
-const removeNotesButton = document.querySelector("#remove-note");
+const noteTitleInput = document.querySelector(".title-input");
+const noteBodyText = document.querySelector(".body-input");
+const removeNotesButton = document.querySelector(".remove-note");
 
 //Generate date reference text content
-const dateReference = document.querySelector("#date-reference");
+const dateReference = document.querySelector(".date-reference");
 dateReference.textContent = moment(note.updatedAt).fromNow();
 
 //Redirects to index if notes is not found

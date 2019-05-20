@@ -1,0 +1,23 @@
+.button {
+  background: $color-heading;
+  border: none;
+  border-bottom: 2px solid #7821a3;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 300;
+  padding: 0.8rem;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgb(80, 18, 77);
+  }
+
+  &--secondary {
+    background: #888888;
+    border-bottom: 2px solid #717171;
+  }
+
+  &--secondary:hover {
+    background: rgb(238, 49, 49);
+  }
+}

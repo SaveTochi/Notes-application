@@ -1,0 +1,19 @@
+body {
+  color: $color-main;
+  font-family: "Open sans", sans-serif;
+  font-size: 1.6rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+}
+
+.empty-message {
+  text-align: center;
+  margin: 3.2rem 0;
+}

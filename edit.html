@@ -4,14 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Edit Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="images/favicon.png" />
+    <title>Note taking application</title>
   </head>
   <body>
-    <a href="/index.html" class="home">Home</a><br />
-    <input id="note-title" placeholder="Note title" />
-    <span id="date-reference"></span>
-    <textarea id="note-body" placeholder="Enter note text"></textarea>
-    <button id="remove-note">X</button>
+    <div class="header">
+      <div class="container">
+        <h1 class="header__title">Notes App</h1>
+        <h2 class="header__subtitle">Take notes and never forget</h2>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="actions__container actions__container--spaced">
+        <a href="/index.html" class="home">Home</a>
+        <span class="date-reference"></span>
+      </div>
+    </div>
+    <div class="container">
+      <input class="title-input" placeholder="Note title" />
+      <textarea class="body-input" placeholder="Enter note text"></textarea>
+      <button class="remove-note button button--secondary">Remove note</button>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
     <script src="scripts/notes-functions.js"></script>
     <script src="scripts/notes-edit.js"></script>
